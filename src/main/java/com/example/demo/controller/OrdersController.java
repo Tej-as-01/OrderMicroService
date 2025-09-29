@@ -42,31 +42,16 @@ public class OrdersController {
 	}
 	
 	@PostMapping()
-	public ResponseEntity<?> createOrder(@RequestBody Orders order) {
-	    Long id = order.getProductId();
-	    int quantity = order.getQuantity();
-
-	    String url = "http://ProductsMicroService/products/" + id + "/" + quantity;
-
-	    try {
-	        restTemplate.put(url, null);
-	        Orders savedOrder = ordersService.createOrder(order);
-	        return ResponseEntity.ok(savedOrder);
-	    } catch (Exception e) {
-	        String message = e.getMessage();
-	        if (message.contains("404")) {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order failed: Product ID not found");
-	        } else {
-	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Order failed: Not enough stock");
-	        }
-	    }
+	public ResponseEntity<Orders> createOrder(@RequestBody Orders order) {
+	    Orders savedOrder=ordersService.createOrder(order);
+	    return ResponseEntity.ok(savedOrder);
 	}
 
 	
-	@PutMapping("/{id}")
-	public Orders updateOrder(@PathVariable("id") Long id, @RequestBody Orders order)
+	@PutMapping("/{id}/{quantity}")
+	public Orders updateOrder(@PathVariable("id") Long id, @PathVariable("quantity") int quantity)
 	{
-		return ordersService.updateOrders(id, order);
+		return ordersService.updateOrderQuantity(id, quantity);
 		
 	}
 	
