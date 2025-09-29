@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
 
 import com.example.demo.repo.Orders;
-
 import com.example.demo.service.OrdersService;
 
 @RestController
@@ -24,6 +25,9 @@ public class OrdersController {
 	
 	@Autowired
 	private OrdersService ordersService;
+	
+	@Autowired
+	private RestTemplate restTemplate;
 	
 	@GetMapping
 	public List<Orders> getAllOrders()
@@ -38,10 +42,26 @@ public class OrdersController {
 	}
 	
 	@PostMapping()
-	public Orders createOrder(@RequestBody Orders order)
-	{
-		return ordersService.createOrder(order);
+	public ResponseEntity<?> createOrder(@RequestBody Orders order) {
+	    Long id = order.getProductId();
+	    int quantity = order.getQuantity();
+
+	    String url = "http://ProductsMicroService/products/" + id + "/" + quantity;
+
+	    try {
+	        restTemplate.put(url, null);
+	        Orders savedOrder = ordersService.createOrder(order);
+	        return ResponseEntity.ok(savedOrder);
+	    } catch (Exception e) {
+	        String message = e.getMessage();
+	        if (message.contains("404")) {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order failed: Product ID not found");
+	        } else {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Order failed: Not enough stock");
+	        }
+	    }
 	}
+
 	
 	@PutMapping("/{id}")
 	public Orders updateOrder(@PathVariable("id") Long id, @RequestBody Orders order)

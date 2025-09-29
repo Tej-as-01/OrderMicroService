@@ -17,7 +17,7 @@ public class Orders {
 	@Column(nullable = false)
 	private Long productId;
 	@Column(nullable = false)
-	private Long quantity;
+	private int quantity;
 
 	public Orders() {
 
@@ -47,11 +47,11 @@ public class Orders {
 		this.productId = productId;
 	}
 
-	public Long getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(Long quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
