@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.5.6'
+	id 'org.springframework.boot' version '3.2.6'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -18,7 +18,7 @@ repositories {
 	mavenCentral()
 }
 ext {
-	set('springCloudVersion', "2025.0.0")
+	set('springCloudVersion', "2023.0.0")
 }
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -28,6 +28,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client' 
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
 }
 dependencyManagement {
 	imports {

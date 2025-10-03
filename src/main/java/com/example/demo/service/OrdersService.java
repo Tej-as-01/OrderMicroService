@@ -13,8 +13,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.Exceptions.ProductStockException;
 import com.example.demo.Exceptions.ResourceNotFoundException;
-import com.example.demo.repo.Orders;
-import com.example.demo.repo.OrdersRepository;
+import com.example.demo.model.Orders;
+import com.example.demo.repository.OrdersRepository;
 
 @Service
 public class OrdersService {

@@ -15,59 +15,61 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-
-import com.example.demo.repo.Orders;
+import com.example.demo.model.Orders;
 import com.example.demo.service.OrdersService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/orders")
+@Tag(name = "Orders Controller", description = "Handles CRUD operations for Orders")
 public class OrdersController {
-	
+
 	@Autowired
 	private OrdersService ordersService;
-	
+
 	@Autowired
 	private RestTemplate restTemplate;
-	
+
+	@Operation(summary = "Get all orders", description = "Returns a list of all orders")
 	@GetMapping
-	public List<Orders> getAllOrders()
-	{
+	public List<Orders> getAllOrders() {
 		return ordersService.getAllOrders();
 	}
-	
+
+	@Operation(summary = "Get order by ID", description = "Returns a single order by its ID")
 	@GetMapping("/{id}")
-	public Orders getOrdersById(@PathVariable("id") Long id)
-	{
+	public Orders getOrdersById(@PathVariable("id") Long id) {
 		return ordersService.getOrderById(id);
 	}
-	
+
+	@Operation(summary = "Create a new order", description = "Creates a new order and returns the saved entity")
 	@PostMapping()
 	public ResponseEntity<Orders> createOrder(@RequestBody Orders order) {
-	    Orders savedOrder=ordersService.createOrder(order);
-	    return ResponseEntity.ok(savedOrder);
+		Orders savedOrder = ordersService.createOrder(order);
+		return ResponseEntity.ok(savedOrder);
 	}
 
-	
+	@Operation(summary = "Update order quantity", description = "Updates the quantity of an existing order")
 	@PutMapping("/{id}/{quantity}")
-	public Orders updateOrder(@PathVariable("id") Long id, @PathVariable("quantity") int quantity)
-	{
+	public Orders updateOrder(@PathVariable("id") Long id, @PathVariable("quantity") int quantity) {
 		return ordersService.updateOrderQuantity(id, quantity);
-		
+
 	}
-	
+
+	@Operation(summary = "Delete all orders", description = "Deletes all orders from the database")
 	@DeleteMapping()
-	public ResponseEntity<String> deleteAllOrders()
-	{
+	public ResponseEntity<String> deleteAllOrders() {
 		ordersService.deleteAllOrders();
 		return ResponseEntity.status(HttpStatus.OK).body("All orders are deleted");
 	}
-	
+
+	@Operation(summary = "Delete order by ID", description = "Deletes a specific order by its ID")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteOrderById(@PathVariable("id") Long id)
-	{
+	public ResponseEntity<String> deleteOrderById(@PathVariable("id") Long id) {
 		ordersService.deleteOrderById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Order with ID "+id+" is deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("Order with ID " + id + " is deleted");
 	}
-	
 
 }
