@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import com.example.demo.Exceptions.ProductStockException;
-import com.example.demo.Exceptions.ResourceNotFoundException;
+import com.example.demo.exceptions.ProductStockException;
+import com.example.demo.exceptions.ResourceNotFoundException;
 import com.example.demo.model.Orders;
 import com.example.demo.repository.OrdersRepository;
 
