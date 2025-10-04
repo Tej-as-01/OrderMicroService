@@ -6,6 +6,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+
+/**
+ * Represents an order placed by a customer.
+ * Contains details such as customer name, product ID, and quantity.
+ */
 @Entity
 public class Orders {
 	@Id
@@ -19,10 +24,13 @@ public class Orders {
 	@Column(nullable = false)
 	private int quantity;
 
+	
+	// Constructor
 	public Orders() {
 
 	}
 
+    // Getters and Setters
 	public Long getId() {
 		return id;
 	}

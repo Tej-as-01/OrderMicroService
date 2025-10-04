@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class AppConfig {
-	
+	//Configures a load-balanced RestTemplate bean for inter-service communication.
 	@Bean
 	@LoadBalanced
 	public RestTemplate restTemplate()

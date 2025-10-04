@@ -25,6 +25,7 @@ public class OrdersRepositoryTest {
     @Autowired
     private TestEntityManager entityManager;
 
+    // Verifies that the save operation for an order functions correctly.
     @Test
     @DisplayName("Integration-Test Save Order")
     public void testSaveOrder() {
@@ -38,6 +39,7 @@ public class OrdersRepositoryTest {
         assertThat(saved.getId()).isNotNull();
     }
 
+    // Verifies that retrieving an order by its ID returns the correct result.
     @Test
     @DisplayName("Integration-Test Find Order by ID")
     public void testFindById() {
@@ -53,6 +55,7 @@ public class OrdersRepositoryTest {
         assertThat(found.get().getCustomerName()).isEqualTo("Meera");
     }
 
+    // Verifies that retrieving all orders returns the expected list of entries.
     @Test
     @DisplayName("Integration-Test Find All Orders")
     public void testFindAll() {
@@ -74,6 +77,7 @@ public class OrdersRepositoryTest {
         assertThat(allOrders).hasSizeGreaterThanOrEqualTo(2);
     }
 
+    // Verifies that deleting an order by its ID removes it from the database.
     @Test
     @DisplayName("Integration-Test Delete Order by ID")
     public void testDeleteById() {
@@ -89,6 +93,7 @@ public class OrdersRepositoryTest {
         assertThat(found).isEmpty();
     }
 
+    // Verifies that deleting all orders clears the repository.
     @Test
     @DisplayName("Integration-Test Delete All Orders")
     public void testDeleteAll() {
