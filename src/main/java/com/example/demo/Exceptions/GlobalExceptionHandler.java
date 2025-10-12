@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
 	
 	//Handles custom exception ResourceNotFoundException and returns 404 status code
 	@ExceptionHandler(ResourceNotFoundException.class)
-	public ResponseEntity<String> GlobalException(ResourceNotFoundException ex)
+	public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex)
 	{
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
 	}
