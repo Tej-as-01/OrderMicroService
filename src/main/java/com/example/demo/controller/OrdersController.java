@@ -34,9 +34,6 @@ public class OrdersController {
 	@Autowired
 	private OrdersService ordersService;
 
-	@Autowired
-	private RestTemplate restTemplate;
-
 	 /**
      * Retrieves all orders from the system.
      * @return list of all orders
